@@ -12,6 +12,7 @@ RSpec.describe 'studio index page' do
     @movie4 = @studio3.movies.create!(title: 'Happy Gilmore', creation_year: 1999, genre: 'comedy')
     @movie5 = @studio4.movies.create!(title: 'Everything Everywhere All At Once', creation_year: 2022, genre: 'meta')
   end
+  
   it 'lists all studios name and location' do
     visit '/studios'
 
@@ -41,14 +42,3 @@ RSpec.describe 'studio index page' do
     end
   end
 end
-
-# ```
-# Story 1
-# Studio Index
-
-# As a user,
-# When I visit the studio index page,
-# Then I see all of the studios including name and location,
-# And under each studio I see all of the studio's movies
-# including the movie's title, creation year, and genre
-# ```
