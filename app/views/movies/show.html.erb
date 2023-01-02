@@ -11,3 +11,10 @@
 <% end %>
 </ul>
 <p>Average age of all actors on this movie: <%= @movie.actors.avg_age %>
+<br>
+Add an actor to this movie using their ID<br>
+<%= form_with url: "/actor_movies?movie_id=#{@movie.id}", method: :post, local: true do |form| %>
+  <%= form.label 'Actor ID' %>
+  <%= form.number_field :actor_id %>
+  <%= form.submit 'Submit' %>
+<% end %>

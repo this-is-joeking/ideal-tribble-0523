@@ -8,6 +8,7 @@ RSpec.describe 'movies show page' do
     @actor2 = Actor.create!(name: 'Jennifer Connelly', age: 49)
     @actor3 = Actor.create!(name: 'Miles Teller', age: 29)
     @actor4 = Actor.create!(name: 'Val Kilmer', age: 58)
+    @actor5 = Actor.create!(name: 'Jon Hamm', age: 45)
 
     ActorMovie.create!(movie_id: @movie1.id, actor_id: @actor1.id)
     ActorMovie.create!(movie_id: @movie1.id, actor_id: @actor2.id)
@@ -33,7 +34,28 @@ RSpec.describe 'movies show page' do
 
   it 'provides average age for all actors on the movie' do
     visit "/movies/#{@movie1.id}"
-    save_and_open_page
+    
     expect(page).to have_content('Average age of all actors on this movie: 46.75')
   end
+
+  it 'does not show actors that are not in the movie' do
+    visit "/movies/#{@movie1.id}"
+
+    expect(page).to_not have_content(@actor5.name)
+  end
+
+  it 'has a form that can be used to add an actor to the movie' do
+    visit "/movies/#{@movie1.id}"
+
+    expect(page).to_not have_content(@actor5.name)
+    expect(page).to_not have_content(@actor5.age)
+
+    fill_in('actor_id', with: @actor5.id)
+    click_button('Submit')
+
+    expect(current_path).to eq("/movies/#{@movie1.id}")
+    expect(page).to have_content(@actor5.name)
+    expect(page).to have_content(@actor5.age)
+  end
 end
+
