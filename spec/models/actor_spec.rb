@@ -10,6 +10,7 @@ RSpec.describe Actor do
   end
 
   describe 'relationships' do
+    it {should have_many :actor_movies}
     it {should have_many(:movies).through(:actor_movies)}
   end
 
