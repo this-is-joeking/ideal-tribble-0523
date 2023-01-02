@@ -4,16 +4,11 @@ RSpec.describe 'movies show page' do
   before(:each) do
     @studio1 = Studio.create!(name: 'Paramount', location: 'Hollywood')
     @movie1 = @studio1.movies.create!(title: 'Maverick', creation_year: 2022, genre: 'action')
-    @actor1 = Actor.create!(name: 'Tom Cruise', age: 51)
-    @actor2 = Actor.create!(name: 'Jennifer Connelly', age: 49)
-    @actor3 = Actor.create!(name: 'Miles Teller', age: 29)
-    @actor4 = Actor.create!(name: 'Val Kilmer', age: 58)
+    @actor1 = @movie1.actors.create!(name: 'Tom Cruise', age: 51)
+    @actor2 = @movie1.actors.create!(name: 'Jennifer Connelly', age: 49)
+    @actor3 = @movie1.actors.create!(name: 'Miles Teller', age: 29)
+    @actor4 = @movie1.actors.create!(name: 'Val Kilmer', age: 58)
     @actor5 = Actor.create!(name: 'Jon Hamm', age: 45)
-
-    ActorMovie.create!(movie_id: @movie1.id, actor_id: @actor1.id)
-    ActorMovie.create!(movie_id: @movie1.id, actor_id: @actor2.id)
-    ActorMovie.create!(movie_id: @movie1.id, actor_id: @actor3.id)
-    ActorMovie.create!(movie_id: @movie1.id, actor_id: @actor4.id)
   end
 
   it 'shows movies title, year and genre' do
@@ -58,4 +53,3 @@ RSpec.describe 'movies show page' do
     expect(page).to have_content(@actor5.age)
   end
 end
-

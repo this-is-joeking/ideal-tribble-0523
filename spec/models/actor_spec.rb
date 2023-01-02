@@ -9,6 +9,10 @@ RSpec.describe Actor do
     @actor5 = Actor.create!(name: 'MilleBobby Brown', age: 20)
   end
 
+  describe 'relationships' do
+    it {should have_many(:movies).through(:actor_movies)}
+  end
+
   describe '#sort_by_age' do
     it 'sorts all actors by age from youngest to oldest' do
       expect(Actor.sort_by_age).to eq([@actor5, @actor3, @actor2, @actor1, @actor4])
