@@ -15,7 +15,7 @@ RSpec.describe 'studio show page' do
 
   it 'lists the studios name and location' do
     visit "/studios/#{@studio1.id}"
-    save_and_open_page
+
     expect(page).to have_content(@studio1.name)
     expect(page).to have_content(@studio1.location)
   end
